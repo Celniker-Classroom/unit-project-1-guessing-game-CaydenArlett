@@ -19,9 +19,9 @@ function reset(){
     }
     //calculates average score
     if (totalGames > 1){
-        var averageScore = (averageScore * (totalGames - 1) + guessCount) / totalGames;
+        averageScore = (averageScore * (totalGames - 1) + guessCount) / totalGames;
     } else {
-        var averageScore = guessCount;
+        averageScore = guessCount;
     }
     // updates the average score and leaderboard
     document.getElementById("avgScore").textContent = "Average Score: " + averageScore.toFixed(2);
