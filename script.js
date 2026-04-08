@@ -6,8 +6,41 @@ var averageScore = 0;
 var wins = 0;
 var totalGames = 0;
 var games = [];
+var startTime = new Date();
+var fastestTime = 0;
+var averageTime = 0;
+
+// asks for the user's name and capitalizes the first letter of their name
 var randomNum = 0;
 userName = userName.charAt(0).toUpperCase() + userName.slice(1);
+
+//displays the date at the top of the page
+function displayTime(){
+    var date = new Date();
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var month = months[date.getMonth()];
+    var days = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th", "20th", "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th", "30th", "31st"];
+    var day = days[date.getDate() - 1];
+    var year = date.getFullYear();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+    if (hours < 10){
+        hours = "0" + hours;
+    }
+    if (minutes < 10){
+        minutes = "0" + minutes;
+    }
+    if (seconds < 10){
+        seconds = "0" + seconds;
+    }
+    document.getElementById("date").textContent = month + " " + day + ", " + year + " " + hours + ":" + minutes + ":" + seconds;
+    var hours = date.getHours();
+}
+//calls the display time function every second to update the time
+displayTime();
+setInterval(displayTime, 1000);
+
 // funcion to reset the game and update the average score and leaderboard
 function reset(){
     totalGames++;
@@ -16,12 +49,7 @@ function reset(){
     // creates array in order of least guesses to most guesses
     while(pos > 0 && games[pos-1] > guessCount){
         [games[pos-1], games[pos]] = [games[pos], games[pos-1]];
-    }
-    //calculates average score
-    if (totalGames > 1){
-        averageScore = (averageScore * (totalGames - 1) + guessCount) / totalGames;
-    } else {
-        averageScore = guessCount;
+        pos--;
     }
     // updates the average score and leaderboard
     document.getElementById("avgScore").textContent = "Average Score: " + averageScore.toFixed(2);
@@ -35,6 +63,26 @@ function reset(){
             }
         }
     }
+    //calculates average score
+    if (totalGames > 1){
+        averageScore = (averageScore * (totalGames - 1) + guessCount) / totalGames;
+    } else {
+        averageScore = guessCount;
+    }
+    //records fastest time and updates it on the page
+    var endTime = new Date();
+    var timeTaken = (endTime - startTime) / 1000;
+    if (fastestTime == 0 || timeTaken < fastestTime){
+        fastestTime = timeTaken;
+    }
+    document.getElementById("fastest").textContent = "Fastest Game: " + fastestTime.toFixed(2) + " seconds";
+    //calculates average time and updates it on the page
+    if (totalGames > 1){
+        averageTime = (averageTime * (totalGames - 1) + timeTaken) / totalGames;
+    } else {
+        averageTime = timeTaken;
+    }
+    document.getElementById("avgTime").textContent = "Average Time: " + averageTime.toFixed(2) + " seconds";
     // resets buttons
     document.getElementById("guessBtn").disabled = true;
     document.getElementById("giveUpBtn").disabled = true;
@@ -43,6 +91,7 @@ function reset(){
 
 // starts game when they click the play button and sets the range based on the difficulty they choose
 function startGame(){
+    startTime = new Date();
     var difficulty = document.querySelector("input[type='radio']:checked");
     if(difficulty.id == "e"){
         range = 3;
