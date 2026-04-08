@@ -47,10 +47,7 @@ function reset(){
     pos = games.length;
     games.push(guessCount);
     // creates array in order of least guesses to most guesses
-    while(pos > 0 && games[pos-1] > guessCount){
-        [games[pos-1], games[pos]] = [games[pos], games[pos-1]];
-        pos--;
-    }
+    games.sort(function(a, b){return a - b});
     // updates the average score and leaderboard
     var leaderboard = document.querySelectorAll("li[name='leaderboard']");
     if (games.length >= 1){
