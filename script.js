@@ -52,7 +52,6 @@ function reset(){
         pos--;
     }
     // updates the average score and leaderboard
-    document.getElementById("avgScore").textContent = "Average Score: " + averageScore.toFixed(2);
     var leaderboard = document.querySelectorAll("li[name='leaderboard']");
     if (games.length >= 1){
         leaderboard[0].textContent = games[0];
@@ -69,6 +68,7 @@ function reset(){
     } else {
         averageScore = guessCount;
     }
+    document.getElementById("avgScore").textContent = "Average Score: " + averageScore.toFixed(2);
     //records fastest time and updates it on the page
     var endTime = new Date();
     var timeTaken = (endTime - startTime) / 1000;
