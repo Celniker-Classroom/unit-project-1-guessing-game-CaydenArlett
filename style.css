@@ -1,9 +1,13 @@
-/* Global page styling */
+
+/* Body
+   - Creates a modern, immersive gaming environment
+   - Flexbox centers the game container both vertically and horizontally
+   - min-height ensures full viewport coverage on short screens */
 body {
     margin: 0;
     min-height: 100vh;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: #f4f4f9;
+    color: #f4f4f9;  /* Light text for high contrast on dark background */
     background: radial-gradient(circle at top left, #1f3a93 0%, #0d1b3e 48%, #09132a 100%);
     display: flex;
     justify-content: center;
@@ -11,6 +15,10 @@ body {
     padding: 24px;
 }
 
+/* Body overlay effect: 
+   - Multiple radial gradients create a light bokeh effect in corners
+   - Linear gradient adds subtle shadow at bottom for depth
+   - pointer-events: none ensures overlay doesn't interfere with interactivity */
 body::before {
     content: "";
     position: fixed;
@@ -21,6 +29,7 @@ body::before {
     pointer-events: none;
 }
 
+/* Box model consistency: All elements inherit border-box sizing for predictable layouts */
 html, body {
     box-sizing: border-box;
 }
@@ -28,15 +37,21 @@ html, body {
     box-sizing: inherit;
 }
 
+/* z-index layering: Ensures body children sit above the overlay background effect */
 body > * {
     position: relative;
     z-index: 1;
 }
 
+/* Remove default margins from common elements for cleaner spacing control */
 p, h3, label, button, input {
     margin: 0;
 }
 
+/* Date display
+   - letter-spacing improves readability of the formatted date/time
+   - Semi-transparent background with light border creates depth without opacity
+   - Box-shadow adds subtle elevation effect */
 #date {
     text-align: center;
     font-size: 1rem;
@@ -44,172 +59,238 @@ p, h3, label, button, input {
     margin-bottom: 20px;
     padding: 14px 18px;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 14px 40px rgba(0,0,0,0.14);
+    background: rgba(255, 255, 255, 0.06);  /* Glass effect*/
+    border: 1px solid rgba(255, 255, 255, 0.12);  /* Subtle border */
+    box-shadow: 0 14px 40px rgba(0,0,0,0.14);  /* Elevation effect */
 }
 
+/* Body width constraint */
 body {
     width: 100%;
 }
 
+
+/* Container
+   - min(720px, 100%) ensures responsive width: maxes at 720px, scales down on mobile
+   - Semi-transparent dark background creates glass effect with low opacity border
+   - Large border-radius (28px) creates modern rounded card appearance
+   - Box shadow provides depth and separation from background */
 .container {
     width: min(720px, 100%);
-    background: rgba(8, 14, 39, 0.9);
+    background: rgba(8, 14, 39, 0.9);  /* Dark semi-transparent background */
     padding: 32px;
     border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.08);  /* Subtle glass border */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);  /* Elevation shadow */
 }
 
+/* Headings: Light blue color provides good contrast while maintaining visual hierarchy */
 h3 {
     margin-top: 24px;
     margin-bottom: 12px;
-    color: #dfe7ff;
-    font-weight: 600;
+    color: #dfe7ff;  /* Lighter blue for emphasis */
+    font-weight: 600;  /* Semi-bold for hierarchy */
 }
 
+/* Labels: Difficulty level options with readable blue tint
+   - cursor: pointer indicates these are interactive */
 label {
     margin-right: 18px;
-    color: #b2c6ff;
+    color: #b2c6ff;  /* Medium blue, distinct from heading */
     cursor: pointer;
 }
 
+/* Radio buttons: Spacing for better UX */
 input[type="radio"] {
     margin-right: 8px;
 }
 
+/* Message box: Dynamic feedback display area
+   - min-height ensures consistent card size even with short messages
+   - Smooth transitions allow background/text color changes for feedback types
+   - Glass-morphism styling matches overall design */
 #msg {
     margin: 12px 0 18px;
     font-size: 1.15rem;
     padding: 16px;
     border-radius: 16px;
-    min-height: 60px;
-    background: rgba(255, 255, 255, 0.06);
+    min-height: 60px;  /* Consistent height for visual stability */
+    background: rgba(255, 255, 255, 0.06);  /* Glass background */
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background 0.25s ease, color 0.25s ease;
+    transition: background 0.25s ease, color 0.25s ease;  /* Smooth feedback transitions */
 }
 
+/* Guess input: Glass-morphism text field
+   - width: calc(100% - 20px) accounts for padding in total width calculation
+   - Light background with transparency maintains design consistency
+   - outline: none removes default browser outline for cleaner look */
 #guess {
     width: calc(100% - 20px);
     padding: 12px 14px;
     border-radius: 14px;
     border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.08);
-    color: #fafcff;
+    background: rgba(255,255,255,0.08);  /* Glass effect */
+    color: #fafcff;  /* Light text for readability */
     font-size: 1rem;
-    outline: none;
+    outline: none;  /* Clean focus appearance */
     margin-bottom: 16px;
 }
 
+/* Guess input focus state: Bright blue glow for visual feedback
+   - Indicates the field is active and ready for input
+   - Box-shadow creates glowing effect without changing layout */
 #guess:focus {
-    border-color: #7dd3fc;
-    box-shadow: 0 0 0 4px rgba(125, 211, 252, 0.12);
+    border-color: #7dd3fc;  /* Bright cyan border */
+    box-shadow: 0 0 0 4px rgba(125, 211, 252, 0.12);  /* Glow effect */
 }
 
+/* Base button styling: Interactive elements with gradient and subtle animation
+   - Gradient background creates visual depth and interest
+   - Multiple transitions provide smooth feedback on interaction
+   - Bold dark text contrasts well with light gradient backgrounds
+   - transform 0.18s creates snappy, responsive feel */
 button {
     cursor: pointer;
     border: none;
     border-radius: 14px;
     padding: 12px 22px;
     font-size: 1rem;
-    font-weight: 600;
-    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    font-weight: 600;  /* Bold text for clear labeling */
+    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;  /* Smooth interactions */
     margin-right: 12px;
     margin-bottom: 12px;
-    color: #08112d;
-    background: linear-gradient(135deg, #7dd3fc, #38bdf8);
-    box-shadow: 0 14px 32px rgba(56, 189, 248, 0.22);
+    color: #08112d;  /* Dark text for contrast */
+    background: linear-gradient(135deg, #7dd3fc, #38bdf8);  /* Cyan gradient (default) */
+    box-shadow: 0 14px 32px rgba(56, 189, 248, 0.22);  /* Subtle shadow */
 }
 
+/* Button hover state: Lifted effect with slightly brighter gradient
+   - translateY(-1px) creates subtle lift animation
+   - Brighter gradient and stronger shadow indicate button is interactive
+   - :not(:disabled) ensures disabled buttons don't respond to hover */
 button:hover:not(:disabled) {
-    transform: translateY(-1px);
-    background: linear-gradient(135deg, #a5f3fc, #3b82f6);
-    box-shadow: 0 16px 36px rgba(56, 189, 248, 0.32);
+    transform: translateY(-1px);  /* Subtle lift effect */
+    background: linear-gradient(135deg, #a5f3fc, #3b82f6);  /* Brighter gradient */
+    box-shadow: 0 16px 36px rgba(56, 189, 248, 0.32);  /* Enhanced shadow */
 }
 
+/* Button disabled state
+   - opacity: 0.5 creates visual distinction from active buttons
+   - cursor: not-allowed provides clear UI feedback
+   - No transitions on disabled state */
 button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background: rgba(255,255,255,0.12);
+    opacity: 0.5;  /* Reduced visibility */
+    cursor: not-allowed;  /* Not clickable indicator */
+    background: rgba(255,255,255,0.12);  /* Gray appearance */
     color: #97a0c1;
-    box-shadow: none;
+    box-shadow: none;  /* Remove elevation */
 }
 
+/* Play button: 
+   - Distinct color from other buttons for quick visual distinction */
 #playBtn {
-    background: linear-gradient(135deg, #fbcfe8, #f472b6);
-    color: #1f2937;
+    background: linear-gradient(135deg, #fbcfe8, #f472b6);  /* Pink gradient */
+    color: #1f2937;  /* Darker text for readability on pink */
 }
 
 #playBtn:hover:not(:disabled) {
-    background: linear-gradient(135deg, #fda4af, #f472b6);
+    background: linear-gradient(135deg, #fda4af, #f472b6);  /* Brighter pink on hover */
 }
 
+/* Guess button: Indigo/purple gradient - indicates primary game action */
 #guessBtn {
-    background: linear-gradient(135deg, #c7d2fe, #818cf8);
+    background: linear-gradient(135deg, #c7d2fe, #818cf8);  /* Purple gradient */
 }
 
 #guessBtn:hover:not(:disabled) {
-    background: linear-gradient(135deg, #dbeafe, #6366f1);
+    background: linear-gradient(135deg, #dbeafe, #6366f1);  /* Brighter purple on hover */
 }
 
+/* Give Up button: Amber/orange gradient - indicates alternate/warning action
+   - Warm color distinguishes it from primary action buttons */
 #giveUpBtn {
-    background: linear-gradient(135deg, #fed7aa, #fb923c);
+    background: linear-gradient(135deg, #fed7aa, #fb923c);  /* Orange gradient */
 }
 
 #giveUpBtn:hover:not(:disabled) {
-    background: linear-gradient(135deg, #fdba74, #fb7c14);
+    background: linear-gradient(135deg, #fdba74, #fb7c14);  /* Brighter orange on hover */
 }
 
+
+/* Stats text: Wins, average score, and timing information
+   - Light blue color for good visibility and harmony with overall design */
 #wins, #avgScore, #fastest, #avgTime {
     font-size: 1rem;
     margin: 10px 0;
-    color: #d8e3ff;
+    color: #d8e3ff;  /* Light blue text */
 }
 
+/* Ordered list: Leaderboard container
+   - Standard list styling with adjusted padding */
 ol {
     padding-left: 20px;
     margin-top: 12px;
-    color: #d8e3ff;
+    color: #d8e3ff;  /* Match stat text color */
 }
 
+/* Leaderboard items: Glass-morphism cards for top 3 scores
+   - Each score displayed in its own styled card
+   - Consistent spacing and visual treatment */
 li[name="leaderboard"] {
     margin-bottom: 8px;
     font-size: 1rem;
     padding: 10px 14px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.05);  /* Subtle glass background */
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);  /* Glass border */
 }
 
+
+/* Feedback color classes: Color-coded signals for player guidance
+   Applied dynamically based on game state to provide immediate visual feedback */
+
+/* Hot: Very close to correct number (difference <= 2) - RED/WARM */
 .msg-hot {
-    color: #ff6b6b;
+    color: #ff6b6b;  /* Bright red - urgent, very close */
 }
 
+/* Warm: Getting closer (difference <= 5) - YELLOW/WARM */
 .msg-warm {
-    color: #fbbf24;
+    color: #fbbf24;  /* Amber/yellow - warming up */
 }
 
+/* Cold: Far from correct number (difference > 5) - BLUE/COOL */
 .msg-cold {
-    color: #60a5fa;
+    color: #60a5fa;  /* Cool blue - cold */
 }
 
+/* Correct: Player found the answer - GREEN/SUCCESS */
 .msg-correct {
-    color: #4ade80;
+    color: #4ade80;  /* Green - success! */
 }
 
+/* Invalid: Player entered out-of-range or non-numeric input - GRAY/ERROR */
 .msg-invalid {
-    color: #bcbcbc;
+    color: #bcbcbc;  /* Gray - error/invalid */
 }
 
+
+/* Mobile breakpoint: Optimizes layout for screens 560px and smaller
+   Reduces padding, stacks buttons vertically, full-width inputs for better UX */
 @media (max-width: 560px) {
+    /* Reduced padding on very small screens */
     body {
         padding: 16px;
     }
+    
+    /* Buttons: Full-width stack on mobile for easier tapping
+       - margin-right set to 0 since buttons now stack vertically */
     button {
         width: 100%;
         margin-right: 0;
     }
+    
+    /* Input field: Full width on mobile */
     #guess {
         width: 100%;
     }
