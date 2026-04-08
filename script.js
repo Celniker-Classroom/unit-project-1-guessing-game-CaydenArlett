@@ -108,19 +108,23 @@ function startGame(){
 }
 // function for when they click the guess button
 function guessNum(){
-    if (Number(document.getElementById("guess").value) < 1 || Number(document.getElementById("guess").value) > range ){
-        document.getElementById("msg").textContent = userName + " please enter a validnumber between 1 and " + range;
+    var msgEl = document.getElementById("msg");
+    var guessValue = Number(document.getElementById("guess").value);
+    if (guessValue < 1 || guessValue > range || Number.isNaN(guessValue)){
+        msgEl.textContent = userName + " please enter a valid number between 1 and " + range;
+        msgEl.className = "msg-invalid";
         return;
     }
     guessCount++;
-    var guess = Number(document.getElementById("guess").value);
+    var guess = guessValue;
     //resest game if they guess correct
     if (guess == randomNum){
-        document.getElementById("msg").textContent = userName +" you are correct!";
+        msgEl.textContent = userName + " you are correct!";
+        msgEl.className = "msg-correct";
         reset();
         return;
     }
-    var output = userName + " " ;
+    var output = userName + " ";
     // gives feedback on if the guess is too high or low and how close they are
     if (guess < randomNum){
         output += "too low";
@@ -131,14 +135,17 @@ function guessNum(){
     var difference = Math.abs(guess - randomNum);
     if (difference <= 2){
         output += "but you're hot!";
+        msgEl.className = "msg-hot";
     }
     else if (difference <= 5){
         output += "but you're warm.";
+        msgEl.className = "msg-warm";
     }
     else {
         output += "and you're cold.";
+        msgEl.className = "msg-cold";
     }
-    document.getElementById("msg").textContent = output;
+    msgEl.textContent = output;
 }
 
 // resests game when they give up
