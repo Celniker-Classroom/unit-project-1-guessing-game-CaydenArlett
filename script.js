@@ -43,6 +43,8 @@ setInterval(displayTime, 1000);
 
 // funcion to reset the game and update the average score and leaderboard
 function reset(){
+    wins++;
+    document.getElementById("wins").textContent = "Total wins: " + wins;
     totalGames++;
     pos = games.length;
     games.push(guessCount);
@@ -115,8 +117,6 @@ function guessNum(){
     //resest game if they guess correct
     if (guess == randomNum){
         document.getElementById("msg").textContent = userName +" you are correct!";
-        wins++;
-        document.getElementById("wins").textContent = "Total wins: " + wins;
         reset();
         return;
     }
