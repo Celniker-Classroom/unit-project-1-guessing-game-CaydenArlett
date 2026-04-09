@@ -45,7 +45,7 @@ setInterval(displayTime, 1000);
 function reset(){
     wins++;
     document.getElementById("wins").textContent = "Total wins: " + wins;
-        msgEl.className = "msg-default";
+    document.getElementById("msg").className = "msg-default";
     totalGames++;
     games.push(guessCount);
     // creates array in order of least guesses to most guesses
