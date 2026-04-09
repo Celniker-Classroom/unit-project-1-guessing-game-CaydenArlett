@@ -45,7 +45,6 @@ setInterval(displayTime, 1000);
 function reset(){
     wins++;
     document.getElementById("wins").textContent = "Total wins: " + wins;
-    document.getElementById("msg").className = "msg-default";
     totalGames++;
     games.push(guessCount);
     // creates array in order of least guesses to most guesses
@@ -99,6 +98,7 @@ function startGame(){
     } else if(difficulty.id == "h"){
         range = 100;
     }
+    document.getElementById("msg").className = "msg-default";
     document.getElementById("msg").textContent = userName + " guess a number between 1 and " + range;
     document.getElementById("guessBtn").disabled = false;
     document.getElementById("giveUpBtn").disabled = false;
